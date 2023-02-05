@@ -12,10 +12,10 @@ import * as d3 from 'd3';
 const Chart = () => {
   useEffect(() => {
     // Clean up elements
-    if (document.querySelector('#stream-graph').innerHTML)
-      document.querySelector('#stream-graph').innerHTML = '';
+    if (document.querySelector('#stream-graph-2').innerHTML)
+      document.querySelector('#stream-graph-2').innerHTML = '';
     // append the svg object to the body of the page
-    const svg = d3.select('#stream-graph').append('svg');
+    const svg = d3.select('#stream-graph-2').append('svg');
 
     svg
       .attr('width', WIDTH + MARGIN.left + MARGIN.right)
@@ -25,11 +25,9 @@ const Chart = () => {
       .attr('id', 'graph-area');
 
     // Parse the Data
-    d3.csv(
-      'https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/5_OneCatSevNumOrdered_wide.csv'
-    ).then((data) => {
+    d3.csv('./travel.csv').then((data) => {
       // Get keys for the stream graph(remove years)
-      const keys = data.columns.slice(1);
+      const keys = data.columns.slice(1, -2);
 
       // Add X axis
       const x = d3
@@ -38,7 +36,7 @@ const Chart = () => {
         .range([0, WIDTH]);
 
       // Add Y axis
-      const y = d3.scaleLinear().domain([-100000, 100000]).range([HEIGHT, 0]);
+      const y = d3.scaleLinear().domain([-4000000, 4000000]).range([HEIGHT, 0]);
 
       svg
         .append('g')
@@ -59,14 +57,23 @@ const Chart = () => {
         .scaleOrdinal()
         .domain(keys)
         .range([
-          '#e41a1c',
-          '#377eb8',
-          '#4daf4a',
-          '#984ea3',
-          '#ff7f00',
+          '#063971',
+          '#C93C20',
+          '#00BB2D',
+          '#633A34',
+          '#20214F',
+          '#DC9D00',
+          '#308446',
           '#ffff33',
-          '#a65628',
-          '#f781bf',
+          '#102C54',
+          '#EFA94A',
+          '#4C514A',
+          '#e41a1c',
+          '#474A51',
+          '#B5B8B1',
+          '#377eb8',
+          '#984ea3',
+          '#2C5545',
         ]);
 
       //stack the data
@@ -109,7 +116,7 @@ const Chart = () => {
     });
   }, []);
 
-  return <div id="stream-graph"></div>;
+  return <div id="stream-graph-2"></div>;
 };
 
 export default Chart;
